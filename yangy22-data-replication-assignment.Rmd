@@ -11,5 +11,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r Data}
 library(curl)
-
+f<- curl("Documents/GitHub/yangy22-data-replication-assignment/ImsaOtoData.csv")
+f
 ```
