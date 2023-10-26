@@ -12,4 +12,12 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r Data}
 f<- read.csv("ImsaOtoData.csv")
 ```
-<img src=/Users/emily/Documents/GitHub/yangy22-data-replication-assignment/Table.png style="transform:rotate(90deg);" width="200" height="800">
+<center> <img src=/Users/emily/Documents/GitHub/yangy22-data-replication-assignment/Table.png style="transform:rotate(90deg);" width="200" height="800"> </center>
+
+```{r Table}
+library(tidyverse)
+zparams <- z %>%
++     select(, , , ,) %>%
++     summarise(across(everything(), list(mean = mean, sd = pop_sd)))
+zparams
+```
