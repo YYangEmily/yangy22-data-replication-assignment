@@ -9,15 +9,12 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r Data}
-f<- read.csv("ImsaOtoData.csv")
-```
-<center> <img src=/Users/emily/Documents/GitHub/yangy22-data-replication-assignment/Table.png style="transform:rotate(90deg);" width="200" height="800"> </center>
+## one figure
+ <img src="Fig 2.png">
+## descriptive statistical analysis
 
-```{r Table}
-library(tidyverse)
-zparams <- z %>%
-+     select(, , , ,) %>%
-+     summarise(across(everything(), list(mean = mean, sd = pop_sd)))
-zparams
-```
+<img src="Fig 4B.png">
+
+## inferential statistical analysis 
+
+<img src="Fig 6 C-E.png">
