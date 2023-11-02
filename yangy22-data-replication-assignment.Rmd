@@ -11,6 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## one figure
  <img src="Fig 2.png">
+ 
 ## descriptive statistical analysis
 
 <img src="Fig 4B.png">
