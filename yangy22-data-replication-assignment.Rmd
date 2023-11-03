@@ -14,30 +14,19 @@ library(dplyr)
 d <- read.csv("Ecosystem_engineers_and_predation_risk_data_-.csv")
 head(d)
 d %>% 
-  rename(Pair_number = pair.number,
-    Vole_Presence = no.voles.vs..voles,
-    Initial_PlantVol = Initial.plant.volume..m3.,
-    Change_PlantVol = change.in.plant.volume..m3..,
-    Sampling_Date = sampling.date.plant.volume..m3.,
-    Plant_Cover = A..splendens.cover,
-    June_Birds = number.of.visits.by.predatory.birds.June,
-    July_Birds = number.of.visits.by.predatory.birds.July,
-    August_Birds = number.of.visits.by.predatory.birds.August,
-    Total_Birds15 = total.visits.by.predatory.birds.15.days,
-    Bird_visits = no..times.of.predatory.bird.visiting,
-    Vole_recaptured = no..of.voles.recaptured,
-    Vole_mortality = vole.mortality.rate...., 
-    Plant_volm3 = change.in.plant.volume..m3.,
-    )
+  select
 ```
 ## Fig 2
  
 ```{r Fig2}
 
 library(ggplot2)
-
+y<- filter(d, Vole_Presence == "vole")
+y
+n <- filter(d, Vole_Presence == "No vole")
+n
 ggplot(d) +
-    geom_bar( aes(x=no.voles.vs..voles, y=change.in.plant.volume..m3..), stat="identity", fill="skyblue", alpha=0.001) +
+    geom_bar( aes(data = d, x=Vole_Presence, y=Change_PlantVol), stat="identity", fill="skyblue", alpha=0.001) +
     geom_errorbar( aes(x=no.voles.vs..voles, ymin=0.49, ymax=0.63), width=0.4, colour="orange", alpha=0.9, linewidth=1.3)
 ```
  
