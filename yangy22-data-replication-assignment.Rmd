@@ -22,9 +22,11 @@ head(d)
 
 library(ggplot2)
 library(ggpubr)
+v <- d[16:30, 5]
+nv <- d[1:15, 5]
+l <- lm(nv ~ v)
+summary(l)
 
-l <- lm(d$Change_plantvol ~ d$Vole_Presence)
-l
 n <- d %>%
   group_by(Vole_Presence) %>%
   summarise(Change_plantvol = mean(Change_plantvol, na.rm = TRUE))
@@ -51,7 +53,6 @@ ggplot(m, aes(x=as.numeric(Plant_cover), y=as.numeric(Birds_total15))) +
 o <- d[1:18, 18:24]
 o
 
-     
 a <- o %>% group_by(Plant_cover2=as.numeric(Plant_cover2)) %>% 
   summarise(Bird_visit6=mean(as.numeric(Bird_visit6)))
 
@@ -60,18 +61,19 @@ b <- o %>% group_by(Plant_cover2=as.numeric(Plant_cover2)) %>%
 
 c <- o %>% group_by(Plant_cover2=as.numeric(Plant_cover2)) %>% 
   summarise(Vole_mortality=mean(as.numeric(Vole_mortality)))
-a 
-b
-c
 
 g <- ggplot(a, aes(x=Plant_cover2, y=Bird_visit6)) +
-  geom_col(fill="blue")
+  geom_col(fill="blue") + 
+  xlab("A. splendens cover (%)") + ylab("No. of visits by predatory birds/plot")
+
 g
 g <- ggplot(b, aes(x=Plant_cover2, y=Feeding_freq)) +
-  geom_col(fill="blue")
+  geom_col(fill="blue") +
+  xlab("A. splendens cover (%)") + ylab("Feeding frequency (%)")
 g
 g <- ggplot(c, aes(x=Plant_cover2, y=Vole_mortality)) +
-  geom_col(fill="blue")
+  geom_col(fill="blue") +
+xlab("A. splendens cover (%)") + ylab("Mortality rate (%)")
 g
 ```
 
