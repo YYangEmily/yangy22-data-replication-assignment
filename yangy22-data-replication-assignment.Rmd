@@ -11,29 +11,69 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r data}
 library(dplyr)
+library(tidyverse)
 d <- read.csv("Ecosystem_engineers_and_predation_risk_data_-.csv")
 head(d)
-d %>% 
-  select
+
 ```
 ## Fig 2
  
 ```{r Fig2}
 
 library(ggplot2)
-y<- filter(d, Vole_Presence == "vole")
-y
-n <- filter(d, Vole_Presence == "No vole")
-n
-ggplot(d) +
-    geom_bar( aes(data = d, x=Vole_Presence, y=Change_PlantVol), stat="identity", fill="skyblue", alpha=0.001) +
-    geom_errorbar( aes(x=no.voles.vs..voles, ymin=0.49, ymax=0.63), width=0.4, colour="orange", alpha=0.9, linewidth=1.3)
+library(ggpubr)
+
+l <- lm(d$Change_plantvol ~ d$Vole_Presence)
+l
+n <- d %>%
+  group_by(Vole_Presence) %>%
+  summarise(Change_plantvol = mean(Change_plantvol, na.rm = TRUE))
+  
+g <- ggplot(n) +
+  geom_col(aes(y=Change_plantvol, x=Vole_Presence), fill="green") +
+  #geom_errorbar( aes(x=Vole_Presence, ymin=, ymax=), width=0.4, colour="orange", alpha=0.9, size=1.3) + 
+ylab("Change in plant volume (m3)")
+g
+
+m <- d[c(1:15),c(7,11)] 
+m
+
+ggplot(m, aes(x=as.numeric(Plant_cover), y=as.numeric(Birds_total15))) +
+  geom_point(colour = "green", size = 5) + 
+  geom_smooth(method = "lm", se=FALSE) +
+  xlab("A. splendens cover %") + ylab("No. of visits by predatory birds/plot")
+
+  
 ```
  
 ## Fig 3
+```{r}
+o <- d[1:18, 18:24]
+o
 
-<img src="Fig 4B.png">
+     
+a <- o %>% group_by(Plant_cover2=as.numeric(Plant_cover2)) %>% 
+  summarise(Bird_visit6=mean(as.numeric(Bird_visit6)))
+
+b <- o %>% group_by(Plant_cover2=as.numeric(Plant_cover2)) %>% 
+  summarise(Feeding_freq=mean(as.numeric(Feeding_freq))) 
+
+c <- o %>% group_by(Plant_cover2=as.numeric(Plant_cover2)) %>% 
+  summarise(Vole_mortality=mean(as.numeric(Vole_mortality)))
+a 
+b
+c
+
+g <- ggplot(a, aes(x=Plant_cover2, y=Bird_visit6)) +
+  geom_col(fill="blue")
+g
+g <- ggplot(b, aes(x=Plant_cover2, y=Feeding_freq)) +
+  geom_col(fill="blue")
+g
+g <- ggplot(c, aes(x=Plant_cover2, y=Vole_mortality)) +
+  geom_col(fill="blue")
+g
+```
 
 ## Fig 4
 
-<img src="Fig 6 C-E.png">
