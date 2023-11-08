@@ -48,8 +48,10 @@ ggplot(m, aes(x=as.numeric(Plant_cover), y=as.numeric(Birds_total15))) +
   
 ```
  
-## Fig 3
+## Fig 4
 ```{r}
+
+
 o <- d[1:18, 18:24]
 o
 
@@ -62,20 +64,20 @@ b <- o %>% group_by(Plant_cover2=as.numeric(Plant_cover2)) %>%
 c <- o %>% group_by(Plant_cover2=as.numeric(Plant_cover2)) %>% 
   summarise(Vole_mortality=mean(as.numeric(Vole_mortality)))
 
-g <- ggplot(a, aes(x=Plant_cover2, y=Bird_visit6)) +
+g1 <- ggplot(a, aes(x=Plant_cover2, y=Bird_visit6)) +
   geom_col(fill="blue") + 
   xlab("A. splendens cover (%)") + ylab("No. of visits by predatory birds/plot")
 
-g
-g <- ggplot(b, aes(x=Plant_cover2, y=Feeding_freq)) +
+g1
+g2 <- ggplot(b, aes(x=Plant_cover2, y=Feeding_freq)) +
   geom_col(fill="blue") +
   xlab("A. splendens cover (%)") + ylab("Feeding frequency (%)")
-g
-g <- ggplot(c, aes(x=Plant_cover2, y=Vole_mortality)) +
+g2
+g3 <- ggplot(c, aes(x=Plant_cover2, y=Vole_mortality)) +
   geom_col(fill="blue") +
 xlab("A. splendens cover (%)") + ylab("Mortality rate (%)")
-g
+g3
+
 ```
 
-## Fig 4
 
