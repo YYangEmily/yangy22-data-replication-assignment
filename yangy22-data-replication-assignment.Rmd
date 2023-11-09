@@ -23,9 +23,8 @@ Inferential Statistic + Figure Replication
 
 library(ggplot2)
 library(ggpubr)
-v <- d[16:30, 5]
-nv <- d[1:15, 5]
-l <- lm(nv ~ v)
+
+l <- lm(data = d, Final_plantvol ~ Vole_Presence)
 summary(l)
 
 n <- d %>%
@@ -80,7 +79,7 @@ g3 <- ggplot(c, aes(x=Plant_cover2, y=Vole_mortality)) +
   geom_col(fill="blue") +
 xlab("A. splendens cover (%)") + ylab("Mortality rate (%)")
 g3
-
+chisq.test( y=Bird_visit6, x=Plant_cover2)
 ```
 
 
