@@ -8,6 +8,11 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+# A rodent herbivore reduces its predation risk through ecosystem engineering
+
+## Background
+
+The enviroment plays a role in predator-prey relationships. 
 
 ```{r data}
 library(dplyr)
@@ -18,7 +23,9 @@ head(d)
 ## Fig 2
  
 Inferential Statistic + Figure Replication
-```{r Fig2}
+
+
+```{r Fig2A}
 
 library(ggplot2)
 library(ggpubr)
@@ -39,6 +46,9 @@ g <- ggplot(n) +
 ylab("Change in plant volume (m3)") + ylim(-1.5, 1.5)
 g
 
+```
+
+```{r Fig2B}
 m <- d[c(1:15),c(7,11)] 
 m
 
