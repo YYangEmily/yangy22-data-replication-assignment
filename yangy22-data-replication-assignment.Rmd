@@ -14,7 +14,6 @@ library(dplyr)
 library(tidyverse)
 d <- read.csv("Ecosystem_engineers_and_predation_risk_data_-.csv")
 head(d)
-
 ```
 ## Fig 2
  
@@ -24,24 +23,27 @@ Inferential Statistic + Figure Replication
 library(ggplot2)
 library(ggpubr)
 
-l <- lm(data = d, Final_plantvol ~ Vole_Presence)
+nv <- d[1:15 ,5 ]
+v <- d[16:30 ,5 ]
+l <- lm(data = d, nv ~ v)
 summary(l)
 
 n <- d %>%
-  group_by(Vole_Presence) %>%
-  summarise(Change_plantvol = mean(Change_plantvol, na.rm = TRUE))
-  
+ group_by(Vole_Presence) %>%
+  summarise_each(funs(mean,sd,se=sd(.)/sqrt(n())), Change_plantvol)
+n  
+
 g <- ggplot(n) +
-  geom_col(aes(y=Change_plantvol, x=Vole_Presence), fill="green") +
-  #geom_errorbar( aes(x=Vole_Presence, ymin=, ymax=), width=0.4, colour="orange", alpha=0.9, size=1.3) + 
-ylab("Change in plant volume (m3)")
+  geom_col(aes(y=mean, x=Vole_Presence), fill="forestgreen") +
+  geom_errorbar( aes(x=Vole_Presence,ymin=mean-se, ymax=mean+se), width=0.2, colour="black") +
+ylab("Change in plant volume (m3)") + ylim(-1.5, 1.5)
 g
 
 m <- d[c(1:15),c(7,11)] 
 m
 
 ggplot(m, aes(x=as.numeric(Plant_cover), y=as.numeric(Birds_total15))) +
-  geom_point(colour = "green", size = 5) + 
+  geom_point(colour = "forestgreen", size = 5) + 
   geom_smooth(method = "lm", se=FALSE) +
   xlab("A. splendens cover %") + ylab("No. of visits by predatory birds/plot")
 
@@ -54,32 +56,31 @@ Descriptive Statistic
 ```{r}
 
 
-o <- d[1:18, 18:24]
+o <- d[1:18, c(18, 20, 21, 24)]
+o <- data.frame(sapply(o, function(x) as.numeric(as.character(x))))
 o
 
-a <- o %>% group_by(Plant_cover2=as.numeric(Plant_cover2)) %>% 
-  summarise(Bird_visit6=mean(as.numeric(Bird_visit6)))
+a <- o %>% group_by(Plant_cover2) %>% 
+  summarise_each(funs(mean,sd,se=sd(.)/sqrt(n())), 1:3) 
+a
 
-b <- o %>% group_by(Plant_cover2=as.numeric(Plant_cover2)) %>% 
-  summarise(Feeding_freq=mean(as.numeric(Feeding_freq))) 
-
-c <- o %>% group_by(Plant_cover2=as.numeric(Plant_cover2)) %>% 
-  summarise(Vole_mortality=mean(as.numeric(Vole_mortality)))
-
-g1 <- ggplot(a, aes(x=Plant_cover2, y=Bird_visit6)) +
+g1 <- ggplot(a, aes(x=Plant_cover2, y=Bird_visit6_mean)) +
   geom_col(fill="blue") + 
+  geom_errorbar( aes(x=Plant_cover2,ymin=Bird_visit6_mean-Bird_visit6_se, ymax=Bird_visit6_mean+Bird_visit6_se), width=0.2, colour="black") +
   xlab("A. splendens cover (%)") + ylab("No. of visits by predatory birds/plot")
 
 g1
-g2 <- ggplot(b, aes(x=Plant_cover2, y=Feeding_freq)) +
+g2 <- ggplot(a, aes(x=Plant_cover2, y=Feeding_freq_mean)) +
   geom_col(fill="blue") +
+  geom_errorbar( aes(x=Plant_cover2,ymin=Feeding_freq_mean-Feeding_freq_se, ymax=Feeding_freq_mean+Feeding_freq_se), width=0.2, colour="black") +
   xlab("A. splendens cover (%)") + ylab("Feeding frequency (%)")
 g2
-g3 <- ggplot(c, aes(x=Plant_cover2, y=Vole_mortality)) +
+g3 <- ggplot(a, aes(x=Plant_cover2, y=Vole_mortality_mean)) +
   geom_col(fill="blue") +
+  geom_errorbar( aes(x=Plant_cover2,ymin=Vole_mortality_mean-Vole_mortality_se, ymax=Vole_mortality_mean+Vole_mortality_se), width=0.2, colour="black") +
 xlab("A. splendens cover (%)") + ylab("Mortality rate (%)")
 g3
-chisq.test( y=Bird_visit6, x=Plant_cover2)
+
 ```
 
 
