@@ -14,18 +14,18 @@ Pair_number,Vole_Presence,Initial_plantvol,Final_plantvol,Change_plantvol,plot,P
 13,No vole,5.02,6.52,1.5,13,7,0,0,1,1,1,Predator,No vole,1,1.29,76,100,1,30,1,4,2,50
 14,No vole,3.71,3.24,-0.47,14,10,0,0,0,0,2,Predator,No vole,0,2.26,46,100,2,60,4,4,1,75
 15,No vole,7.92,9.21,1.29,15,21,1,0,1,2,3,Predator,No vole,3,1.67,5,100,3,20,2,4,1,75
-1,Vole,2.22,2.34,0.12,n/a,n/a,n/a,n/a,n/a,n/a,4,Predator,No vole,2,1.44,25,100,4,50,4,4,3,25
-2,Vole,6.46,4.77,-1.69,n/a,n/a,n/a,n/a,n/a,n/a,5,Predator,No vole,0,2.79,-9,100,5,20,1,4,2,50
-3,Vole,3.32,2.46,-0.86,n/a,n/a,n/a,n/a,n/a,n/a,6,Predator,No vole,1,2.7,-25,100,6,40,3,4,1,75
-4,Vole,4.16,4.41,0.26,n/a,n/a,n/a,n/a,n/a,n/a,1,Predator,Vole,3,1.54,39,n/a,n/a,n/a,n/a,n/a,n/a,n/a
-5,Vole,5.97,4.21,-1.76,n/a,n/a,n/a,n/a,n/a,n/a,2,Predator,Vole,2,-1.51,-112,n/a,n/a,n/a,n/a,n/a,n/a,n/a
-6,Vole,8.21,6.16,-2.05,n/a,n/a,n/a,n/a,n/a,n/a,3,Predator,Vole,4,-0.6,-21,n/a,n/a,n/a,n/a,n/a,n/a,n/a
-7,Vole,1.57,1.29,-0.28,n/a,n/a,n/a,n/a,n/a,n/a,4,Predator,Vole,6,-1.18,82,n/a,n/a,n/a,n/a,n/a,n/a,n/a
-8,Vole,8.44,6.51,-1.93,n/a,n/a,n/a,n/a,n/a,n/a,5,Predator,Vole,3,-0.33,-41,n/a,n/a,n/a,n/a,n/a,n/a,n/a
-9,Vole,0.75,1.26,0.51,n/a,n/a,n/a,n/a,n/a,n/a,6,Predator,Vole,5,-0.42,-27,n/a,n/a,n/a,n/a,n/a,n/a,n/a
-10,Vole,3.84,4.57,0.73,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
-11,Vole,1.72,1.36,-0.36,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
-12,Vole,10.22,9.03,-1.19,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
-13,Vole,0.82,0.99,0.17,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
-14,Vole,0.58,0.34,-0.24,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
-15,Vole,4.06,3.17,-0.9,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+1,Vole,2.22,2.34,0.12,,,,,,,4,Predator,No vole,2,1.44,25,100,4,50,4,4,3,25
+2,Vole,6.46,4.77,-1.69,,,,,,,5,Predator,No vole,0,2.79,-9,100,5,20,1,4,2,50
+3,Vole,3.32,2.46,-0.86,,,,,,,6,Predator,No vole,1,2.7,-25,100,6,40,3,4,1,75
+4,Vole,4.16,4.41,0.26,,,,,,,1,Predator,Vole,3,1.54,39,,,,,,,
+5,Vole,5.97,4.21,-1.76,,,,,,,2,Predator,Vole,2,-1.51,-112,,,,,,,
+6,Vole,8.21,6.16,-2.05,,,,,,,3,Predator,Vole,4,-0.6,-21,,,,,,,
+7,Vole,1.57,1.29,-0.28,,,,,,,4,Predator,Vole,6,-1.18,82,,,,,,,
+8,Vole,8.44,6.51,-1.93,,,,,,,5,Predator,Vole,3,-0.33,-41,,,,,,,
+9,Vole,0.75,1.26,0.51,,,,,,,6,Predator,Vole,5,-0.42,-27,,,,,,,
+10,Vole,3.84,4.57,0.73,,,,,,,,,,,,,,,,,,,
+11,Vole,1.72,1.36,-0.36,,,,,,,,,,,,,,,,,,,
+12,Vole,10.22,9.03,-1.19,,,,,,,,,,,,,,,,,,,
+13,Vole,0.82,0.99,0.17,,,,,,,,,,,,,,,,,,,
+14,Vole,0.58,0.34,-0.24,,,,,,,,,,,,,,,,,,,
+15,Vole,4.06,3.17,-0.9,,,,,,,,,,,,,,,,,,,
