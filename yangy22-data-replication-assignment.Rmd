@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Background
 
-The environment plays a role in predator-prey relationships. This paper studied Brandt’s voles which modify their habitat by cutting down bunchgrass (Achnatherum splendens) in the presence of shrikes. A. splendens is unpalatable and voles do eat it. Shrike perch on bunchgrasses to hunt voles and impale voles onto bunchgrass spikes for later.  By decreasing the volume of bunchgrass voles reduced visitations by shrikes and vole mortality rates drop. Their ecosystem engineering through damaging roots and clipping leaves can directly reduce their own predation risk by modifying habitat structure. 
+The environment plays a role in predator-prey relationships. This paper studied Brandt’s voles which modify their habitat by cutting down bunchgrass (Achnatherum splendens) in the presence of shrikes. A. splendens is unpalatable and voles don't eat it. Shrike perch on bunchgrasses to hunt voles and impale voles onto bunchgrass spikes for later.  By decreasing the volume of bunchgrass voles reduced visitations by shrikes and vole mortality rates drop. Their ecosystem engineering through damaging roots and clipping leaves can directly reduce their own predation risk by modifying habitat structure. 
 
 <img src="img/Fig1.jpg" width="400px">
 
@@ -55,12 +55,12 @@ one.aov <- aov(as.numeric(Change_plantvol) ~ Vole_Presence, data = d)
 summary(one.aov)
 
 ```
-I found the same mean changes in plant volume but got a different F and P value through a one way anova. F 1,14 = 10.96 and P = 0.00257. I chose a one way anova because I wanted to see if the means of each group were the same. The authors didn't say what type of test was used
+I found the same mean changes in plant volume but got a different F and P value through a one way anova. F 1,14 = 10.96 and P = 0.00257. I chose a one way anova because I wanted to see if the means of each group were the same. The authors didn't say what type of test was used. 
 
 ## Fig 2B
 ```{r Fig2B}
 m <- d[ ,c(7,11)] 
-m
+head(m)
 
 ggplot(m, aes(x=as.numeric(Plant_cover), y=as.numeric(Birds_total15))) +
   geom_point(colour = "forestgreen", size = 5) + 
@@ -76,13 +76,14 @@ The total number of visits by predatory birds per plot was positively correlated
 p <- d[1:15 ,7]
 b <- d[1:15 ,11]
 
-n <- lm(data = d, Birds_total15 ~ Plant_cover, na.omit=TRUE)
-n
+n <- lm(data = d, Birds_total15 ~ Plant_cover)
+summary(n)
 
 res <- cor.test(as.numeric(p), as.numeric(b), 
                     method = "pearson")
 res
-
+one.aov <- aov(Birds_total15 ~ Plant_cover, data = d)
+summary(one.aov)
 
 ```
 ## Fig 4A

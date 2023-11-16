@@ -12,7 +12,7 @@
 
 <meta name="author" content="Emily Yang" />
 
-<meta name="date" content="2023-11-14" />
+<meta name="date" content="2023-11-16" />
 
 <title>yangy22-data-replication-assignment</title>
 
@@ -141,7 +141,7 @@ pointer-events: auto;
 <section class="page-header">
 <h1 class="title toc-ignore project-name">yangy22-data-replication-assignment</h1>
 <h4 class="author project-author">Emily Yang</h4>
-<h4 class="date project-date">2023-11-14</h4>
+<h4 class="date project-date">2023-11-16</h4>
 </section>
 
 
@@ -172,7 +172,7 @@ engineering</h1>
 <p>The environment plays a role in predator-prey relationships. This
 paper studied Brandt’s voles which modify their habitat by cutting down
 bunchgrass (Achnatherum splendens) in the presence of shrikes. A.
-splendens is unpalatable and voles do eat it. Shrike perch on
+splendens is unpalatable and voles don’t eat it. Shrike perch on
 bunchgrasses to hunt voles and impale voles onto bunchgrass spikes for
 later. By decreasing the volume of bunchgrass voles reduced visitations
 by shrikes and vole mortality rates drop. Their ecosystem engineering
@@ -283,43 +283,19 @@ compared to the initial conditions (F1, 14 = 15.09; p = 0.0017; Figure
 <p>I found the same mean changes in plant volume but got a different F
 and P value through a one way anova. F 1,14 = 10.96 and P = 0.00257. I
 chose a one way anova because I wanted to see if the means of each group
-were the same. The authors didn’t say what type of test was used</p>
+were the same. The authors didn’t say what type of test was used.</p>
 </div>
 <div id="fig-2b" class="section level2">
 <h2>Fig 2B</h2>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> d[ ,<span class="fu">c</span>(<span class="dv">7</span>,<span class="dv">11</span>)] </span>
-<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>m</span></code></pre></div>
-<pre><code>##    Plant_cover Birds_total15
-## 1            9             1
-## 2           28             2
-## 3           12             0
-## 4           23             0
-## 5           34             3
-## 6           20             0
-## 7            5             1
-## 8           14             0
-## 9           37             3
-## 10          16             2
-## 11          35             1
-## 12          18             0
-## 13           7             1
-## 14          10             0
-## 15          21             2
-## 16          NA            NA
-## 17          NA            NA
-## 18          NA            NA
-## 19          NA            NA
-## 20          NA            NA
-## 21          NA            NA
-## 22          NA            NA
-## 23          NA            NA
-## 24          NA            NA
-## 25          NA            NA
-## 26          NA            NA
-## 27          NA            NA
-## 28          NA            NA
-## 29          NA            NA
-## 30          NA            NA</code></pre>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="fu">head</span>(m)</span></code></pre></div>
+<pre><code>##   Plant_cover Birds_total15
+## 1           9             1
+## 2          28             2
+## 3          12             0
+## 4          23             0
+## 5          34             3
+## 6          20             0</code></pre>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">ggplot</span>(m, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">as.numeric</span>(Plant_cover), <span class="at">y=</span><span class="fu">as.numeric</span>(Birds_total15))) <span class="sc">+</span></span>
 <span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">&quot;forestgreen&quot;</span>, <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span> </span>
 <span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
@@ -334,20 +310,30 @@ z-ratio = 2.185; p = 0.029; Figure 2B).</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>p <span class="ot">&lt;-</span> d[<span class="dv">1</span><span class="sc">:</span><span class="dv">15</span> ,<span class="dv">7</span>]</span>
 <span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>b <span class="ot">&lt;-</span> d[<span class="dv">1</span><span class="sc">:</span><span class="dv">15</span> ,<span class="dv">11</span>]</span>
 <span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">data =</span> d, Birds_total15 <span class="sc">~</span> Plant_cover, <span class="at">na.omit=</span><span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
-##  extra argument &#39;na.omit&#39; will be disregarded</code></pre>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>n</span></code></pre></div>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">data =</span> d, Birds_total15 <span class="sc">~</span> Plant_cover)</span>
+<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a><span class="fu">summary</span>(n)</span></code></pre></div>
 <pre><code>## 
 ## Call:
-## lm(formula = Birds_total15 ~ Plant_cover, data = d, na.omit = TRUE)
+## lm(formula = Birds_total15 ~ Plant_cover, data = d)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -1.2909 -0.8705  0.4089  0.8096  1.1295 
 ## 
 ## Coefficients:
-## (Intercept)  Plant_cover  
-##    -0.09032      0.06005</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(<span class="fu">as.numeric</span>(p), <span class="fu">as.numeric</span>(b), </span>
-<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a>                    <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span>
-<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a>res</span></code></pre></div>
+##             Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept) -0.09032    0.52530  -0.172   0.8661  
+## Plant_cover  0.06005    0.02418   2.483   0.0274 *
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.9399 on 13 degrees of freedom
+##   (15 observations deleted due to missingness)
+## Multiple R-squared:  0.3218, Adjusted R-squared:  0.2696 
+## F-statistic: 6.168 on 1 and 13 DF,  p-value: 0.02743</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(<span class="fu">as.numeric</span>(p), <span class="fu">as.numeric</span>(b), </span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>                    <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a>res</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -359,6 +345,14 @@ z-ratio = 2.185; p = 0.029; Figure 2B).</p>
 ## sample estimates:
 ##      cor 
 ## 0.567248</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>one.aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(Birds_total15 <span class="sc">~</span> Plant_cover, <span class="at">data =</span> d)</span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a><span class="fu">summary</span>(one.aov)</span></code></pre></div>
+<pre><code>##             Df Sum Sq Mean Sq F value Pr(&gt;F)  
+## Plant_cover  1  5.449   5.449   6.168 0.0274 *
+## Residuals   13 11.485   0.883                 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 15 observations deleted due to missingness</code></pre>
 </div>
 <div id="fig-4a" class="section level2">
 <h2>Fig 4A</h2>
