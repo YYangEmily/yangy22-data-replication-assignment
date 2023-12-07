@@ -28,6 +28,7 @@ library(dplyr)
 library(tidyverse)
 library(ggplot2)
 library(ggpubr)
+library(ggsignif)
 d <- read.csv("Ecosystem_engineers_and_predation_risk_data_-.csv")
 head(d)
 ```
@@ -41,12 +42,14 @@ Inferential Statistic + Figure Replication
 n <- d %>%
  group_by(Vole_Presence) %>%
   summarise_each(funs(mean,sd,se=sd(.)/sqrt(n())), Change_plantvol)
-n  
+n
 
 g <- ggplot(n) +
   geom_col(aes(y=mean, x=Vole_Presence), fill="forestgreen") +
   geom_errorbar( aes(x=Vole_Presence,ymin=mean-se, ymax=mean+se), width=0.2, colour="black") +
-ylab("Change in plant volume (m3)") + ylim(-1.5, 1.5)
+ylab("Change in plant volume (m3)") + ylim(-1.5, 1.5) #+
+  #geom_signif(comparisons = list(c("No vole","Vole")), map_signif_level = TRUE)
+                 
 g
 
 ```
