@@ -17,6 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 The environment plays a role in predator-prey relationships. This paper studied Brandt’s voles which modify their habitat by cutting down bunchgrass (Achnatherum splendens) in the presence of shrikes. A. splendens is unpalatable and voles don't eat it. Shrike perch on bunchgrasses to hunt voles and impale voles onto bunchgrass spikes for later.  By decreasing the volume of bunchgrass voles reduced visitations by shrikes and vole mortality rates drop. Their ecosystem engineering through damaging roots and clipping leaves can directly reduce their own predation risk by modifying habitat structure. 
 
+## Data Description
 The data set I used was deposited on Dryad. 
 Column A-E: Data used to generate Figure 2A
 Column G-K: Data used to generate Figure 2B
