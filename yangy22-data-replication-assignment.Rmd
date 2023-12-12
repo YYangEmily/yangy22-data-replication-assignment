@@ -15,13 +15,16 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Background
 
-The environment plays a role in predator-prey relationships. This paper studied Brandt’s voles which modify their habitat by cutting down bunchgrass (Achnatherum splendens) in the presence of shrikes. A. splendens is unpalatable and voles don't eat it. Shrike perch on bunchgrasses to hunt voles and impale voles onto bunchgrass spikes for later.  By decreasing the volume of bunchgrass voles reduced visitations by shrikes and vole mortality rates drop. Their ecosystem engineering through damaging roots and clipping leaves can directly reduce their own predation risk by modifying habitat structure. 
+The environment plays a role in predator-prey relationships. This paper studied Brandt’s voles which modify their habitat by cutting down bunchgrass (Achnatherum splendens) in the presence of shrikes. A. splendens grass is unpalatable and not a vole food source. Shrikes perch on these bunchgrasses to hunt voles and also impale voles grass spikes for later consumption.  By decreasing the volume of bunchgrass voles reduced visitations by shrikes leading to a drop in vole mortality rates. Their ecosystem engineering through damaging roots and clipping leaves can directly reduce their own predation risk by modifying habitat structure. 
+
+<img src="img/Fig1.jpg" width="400px" height="600px"><br>
 
 ## Data Description
-The data set I used was deposited on Dryad. 
-Column A-E: Data used to generate Figure 2A
-Column G-K: Data used to generate Figure 2B
-Column R-X: Data used to generate Figure 4 
+The data set I used was deposited on Dryad. https://datadryad.org/stash/dataset/doi:10.5061/dryad.cvdncjt57  <br>
+Column A-E: Data used to generate Figure 2A <br>
+Column G-K: Data used to generate Figure 2B <br>
+Column M-Q: Data used to generate Figure 3 <br>
+Column R-X: Data used to generate Figure 4 <br>
 
 ```{r data}
 library(dplyr)
@@ -31,19 +34,22 @@ library(ggpubr)
 
 d <- read.csv("Ecosystem_engineers_and_predation_risk_data_-.csv")
 head(d)
+options(warn=-1) # to get rid of all the package warnings
 ```
-## Figure 2A
+## Figure 2
  
 Inferential Statistic + Figure Replication<br>
 
 <img src="img/Figure 2.png" width="400px" height="600px"><br>
 
-Figure 2 was about observing randomly 15 pairs of randomly selected A. splendens grass bunches 15 with voles and 15 without. They recorded the presence of voles and presence of birds and found that vole presence had an effect on A. splendens size and the amount of grass coverage affected how often predatory shrikes would visit. <br>
+Figure 2 was about observing randomly 15 pairs of randomly selected A. splendens grass bunches 15 with voles and 15 without. The paired grass bunches were at least 15 meters apart and 30 meters away from other pairs. They recorded the presence of voles and presence of birds and found that vole presence had an effect on A. splendens size and the amount of grass coverage affected how often predatory shrikes would visit. <br>
+
+### Figure 2A
 
 ```{r Fig2A}
 n <- d %>%
- group_by(Vole_Presence) %>%
-  summarise_each(funs(mean,sd,se=sd(.)/sqrt(n())), Change_plantvol)
+ group_by(Vole_Presence) %>% # Compared by vole presence
+  summarise_each(funs(mean,sd,se=sd(.)/sqrt(n())), Change_plantvol) # Find mean SD and SE of changes in plant volume. 
 n
 m <- as.data.frame(n)
 
@@ -69,108 +75,120 @@ summary(model)
 ```
 I chose a repeated measures anova because I wanted to see if there was a significant difference in the change in plant volume of each paired group. I found the same F and p values with a significance of 0.01. The authors didn't say what type of test was used to get their statistical results. I had tried a one way anova and gotten values that were close but double the degrees of freedom. 
 
-## Figure 2B
+### Figure 2B
 ```{r Fig2B}
-m <- d[ ,c(7,11)] 
-head(m)
 
-ggplot(m, aes(x=as.numeric(Plant_cover), y=as.numeric(Birds_total15))) +
+ggplot(d, aes(x=as.numeric(Plant_cover), y=as.numeric(Birds_total15))) +
   geom_point(colour = "forestgreen", size = 5) + 
-  geom_smooth(method = "lm", se=FALSE) +
+  geom_smooth(method = "lm", se=FALSE) + # Add trendline
   xlab("A. splendens cover %") + ylab("No. of visits by predatory birds/plot")
 
   
 ```
+<br>Figure 2B was about plotting the relationship between plant coverage and visits by predatory birds. There is a positive correlation between the two variables which makes sense since more plant coverage = more hunting perches for the birds. <br>
 
-The total number of visits by predatory birds per plot was positively correlated with the coverage of A. splendens grass (pseudo-R2 = 0.252; z-ratio = 2.185; p = 0.029; Figure 2B).
+The paper reports: The total number of visits by predatory birds per plot was positively correlated with the coverage of A. splendens grass (pseudo-R2 = 0.252; z-ratio = 2.185; p = 0.029; Figure 2B).
 
 ```{r 2B Stats}
-p <- d[1:15 ,7] # Selecting 
-b <- d[1:15 ,11]
-
+# Generalized Linear Model
 glm <- glm(data = d, Birds_total15 ~ Plant_cover, family= "poisson")
 summary(glm)
 
-lm <- lm(data = d, Birds_total15 ~ Plant_cover)
-summary(lm)
+#calculate McFadden's R-squared for model
+with(summary(glm), 1 - deviance/null.deviance)
 
 ```
+
+<br>I chose to do a generalized linear model because the number of visits is a discrete variable. I got a z value of 2.185 and a p value 0.0289 which match with reported data. I then calculated McFadden's R-squared which turned out to be 0.2519348 matching the reported psudo-R2<br>
+
 
 ## Figure 3
 
+Summary Statistics 
+
 <img src="img/Figure 3.png" width="400px" height="600px">
 
-```{r Fig3A, eval=FALSE}
+<br>Figure 3 was a Semi-natural manipulative experiment to study how the predation risk affected vole activity. They fenced off 12 plots so shrikes could not attack the voles and had 12 plots open to the air. In half of each set they placed a pair of subadult voles. In total there were 6 replicates of each condition. The only two significant findings were that birds more frequently visited plots with voles if not fenced off and that voles significantly decreased plant volume in the presence of birds. 
 
-# First make a dataframe with just the variable we are interested in for figure 3.
-t<- d[,c("Predator","Rodent","Bird_visits","Change_plantvol2", "Change_biomass")]
+<br> I worked really hard on this and didn't want to delete the whole thing even though the graphs are not what I wanted. The tables accurately report the mean, SD, SE of each variable that I made throught the tidyverse. The graphs are supposed to be barcharts reporting the mean and error bars for the standard error of the mean. I was unable to make bars sorted by both predator presence and rodent presence. In the end I was able to make a boxplot which show the median and quantiles of the data which are sorted by both predator presence and rodent presence. This shows some similar trends but the graphs are not the same as the paper. <br>
 
-library(tidyverse)
+### Figure 3A
+
+```{r Fig3A}
+
+# First make a dataframe with just the variable we are interested in
 
 t <-
   d %>%
-  select("block","Predator","Rodent","Bird_visits","Change_plantvol2", "Change_biomass") %>%
+  select("Predator","Rodent","Bird_visits","Change_plantvol2", "Change_biomass") %>%
   filter(Predator != "")
-  
+head(t)
 
 
 # Sort by both predator and rodent 
-t
 q <- t %>% group_by(Predator, Rodent) %>% 
-summarise_each(funs(mean,sd,se=sd(.)/sqrt(n())), Bird_visits) #%>% 
-q
+summarise_each(funs(mean,sd,se=sd(.)/sqrt(n())), Bird_visits) # Find mean, SD, SE
+q# Data of the Mean and SD since the boxplot isn't ideal 
 
+# Make a Boxplot since Barplot won't work
 g <- ggplot(data = t, aes(y=Bird_visits, x=Predator, color=Rodent)) +
   geom_boxplot() + ylab("No.of visits by predatory birds/plot") + ylim(0, 6)
-  
-                 
 g
+
 ```
-geom_errorbar( aes(x=Predator,ymin=mean-se, ymax=mean+se), width=0.2, colour="black") 
 
-```{r Fig3B, eval=FALSE}
+My graph shows the medians of visits by predatory birds per treatment condition. There was a significant difference between vole and no vole when predators were present. <br>
 
+
+### Figure 3B
+
+```{r Fig3B}
+# Sort by both predator and rodent
 r <- t %>% group_by(Predator, Rodent) %>% 
-summarise_each(funs(mean,sd,se=sd(.)/sqrt(n())), Change_plantvol2) 
+summarise_each(funs(mean,sd,se=sd(.)/sqrt(n())), Change_plantvol2) # Find mean, SD, SE
 r
 
-g <- ggplot(r) +
-  geom_col(aes(y=mean, x=Change_plantvol2), fill="forestgreen") +
-  geom_errorbar( aes(x=Change_plantvol2, ymin=mean-se, ymax=mean+se), width=0.2, colour="black") + 
-ylab("Change in plant volume (m3)") + ylim(-2, 3) #+
-  #geom_signif(comparisons = list(c("No vole", "Vole")), map_signif_level = TRUE)
-                 
-g
+g <- ggplot(data = t, aes(y=Change_plantvol2, x=Predator, color=Rodent)) +
+  geom_boxplot() + ylab("Change in plant volume (m3)") + ylim(-2, 3)
+g 
+
 ```
+<br>My graph shows the medians of change in above ground plant volume per treatment condition. There was a significant difference between vole and no vole when predators were present.<br>
 
-```{r Fig3C, eval=FALSE}
+### Figure 3C
 
+```{r Fig3C}
+# Sort by both predator and rodent
 s <- t %>% group_by(Predator, Rodent) %>% 
-summarise_each(funs(mean,sd,se=sd(.)/sqrt(n())), Change_biomass)
+summarise_each(funs(mean,sd,se=sd(.)/sqrt(n())), Change_biomass) # Find mean, SD, SE
 s
 
-g <- ggplot(s) +
-  geom_col(aes(y=mean, x=Change_biomass), fill="forestgreen") +
-  geom_errorbar( aes(x=Change_biomass, ymin=mean-se, ymax=mean+se), width=0.2, colour="black") + 
-ylab("Change in root biomass (g/m2)") + ylim(-60, 60) #+
-  #geom_signif(comparisons = list(c("No vole", "Vole")), map_signif_level = TRUE)
-                 
-g
+g <- ggplot(data = t, aes(y=Change_biomass, x=Predator, color=Rodent)) +
+  geom_boxplot() + ylab("Change in root biomass (g/m2)") + ylim(-60, 60)
+
+g 
 ```
 
-## Figure 4A
+My graph shows the medians of change in below ground root biomass per treatment condition. There were no significant findings. <br>
+
+## Figure 4
 
 Descriptive Statistic
 
 <img src="img/Figure 4.png" width="400px" height="600px">
 
+<br> Figure 4 was a semi-natural manipulative experiment to study the effects of grass coverage on bird and vole behavior. Four voles were placed in each plot and recaptured at then end of the experiment to calculate mortality. The A. splendens grass was transplanted into buckets so the voles are unable to damage them. The differing amounts of grass coverage didn't affect total bird visits per plot 4A but did significantly affect vole feeding behavior 4B and vole mortality 4C.
+
+### Figure 4A
+
 ```{r 4A}
 
-
+# Select the data we want to use for Figure 4
 o <- d[1:18, c(18, 20, 21, 24)]
 o <- data.frame(sapply(o, function(x) as.numeric(as.character(x))))
 head(o)
 
+# Find mean, SD, SE for all three 
 a <- o %>% group_by(Plant_cover2) %>% 
   summarise_each(funs(mean,sd,se=sd(.)/sqrt(n())), 1:3) 
 head (a)
@@ -182,8 +200,10 @@ g1 <- ggplot(a, aes(x=Plant_cover2, y=Bird_visit6_mean)) +
 scale_x_continuous(breaks=c(0,50,100)) + ylim(0,4)
 g1
 ```
+<br>There is a positive trend of more total bird visits with increasing grass coverage but it was not found to be significant. <br>
 
-## Figure 4B
+
+### Figure 4B
 
 ```{r 4B}
 g2 <- ggplot(a, aes(x=Plant_cover2, y=Feeding_freq_mean)) +
@@ -193,8 +213,9 @@ g2 <- ggplot(a, aes(x=Plant_cover2, y=Feeding_freq_mean)) +
   scale_x_continuous(breaks=c(0,50,100)) + scale_y_continuous(breaks=c(0, 20, 40, 60, 80, 100)) + ylim(0,100)
 g2
 ```
+<br>We can see a significant difference in vole feeding frequency between the 100% plant coverage and the other two conditions. <br>
 
-## Figure 4C
+### Figure 4C
 ```{r 4C}
 g3 <- ggplot(a, aes(x=Plant_cover2, y=Vole_mortality_mean)) +
   geom_col(fill="blue") +
@@ -204,3 +225,8 @@ xlab("A. splendens cover (%)") + ylab("Mortality rate (%)") +
 g3
 
 ```
+<br>We see a significant difference in vole mortality rates across the differing amounts of grass coverage. With only 4 voles per plot the only mortality options are 0, 25, 50 or 100%. 
+
+## Conclusions
+
+This was a very interesting paper to read because we usually hear more about animals adapting to their environments and less about animals adapting their environment to avoid predators. It was a bit hard to figure out what statistical tests I need to run for the figures but it ended up fine. I learned a lot about sorting and sectioning data as well as different graphing functions. 
